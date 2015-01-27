@@ -13,6 +13,7 @@ var passport 			= require('passport');
 var bodyParser 		= require('body-parser');
 var cookieParser 	= require('cookie-parser');
 var session 			= require('express-session');
+var publicPath 		= path.resolve(__dirname, 'public');
 
 var configDb 			= require('./config/database.js');
 // configuration ==============================================
@@ -29,6 +30,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 app.set('port', port);
+app.use(express.static(publicPath));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
