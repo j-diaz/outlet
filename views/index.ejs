@@ -1,0 +1,12 @@
+<% include header %>
+
+<h1>Welcome to Duck Taped!</h1>
+
+<% if(articles){ %>
+	<% articles.forEach(function(article){ %>
+ <div><p> <a href="/articles/<%=article.title%>" > <%= article.title %> </a> <br> <%= article.body %> <br> <%= article.author %> </p> </div> 
+<% }); } else { %>
+	Haven't posted anything go <a href="/post">here</a>
+<% } %>
+
+<% include footer %>
