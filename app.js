@@ -48,8 +48,8 @@ app.use(flash());
 require('./routes/appRoutes.js')(app, passport); //load our apps and pass passport fully configured
 require('./routes/apiRoutes.js')(app, passport);
 
-// launch ====================================================
+// launch =========================================================
 
 app.listen(app.get('port'), function(){
 	console.log('Server started on port: '+app.get('port'));
-})
+});

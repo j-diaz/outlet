@@ -1,33 +1,88 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>DuckTaped.io</title>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-</head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A layout example that shows off a blog page with a list of posts.">
 
+    <title>&ndash; DuckTaped.io &ndash; </title>
+
+    
+
+
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css" >
+
+
+
+<!--[if lte IE 8]>
+  
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+  
+<![endif]-->
+<!--[if gt IE 8]><!-->
+  
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+  
+<!--<![endif]-->
+
+
+
+
+
+  
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/blog-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="/css/blog.css">
+    <!--<![endif]-->
+  
+
+
+    
+
+    
+
+</head>
 <body>
 
-	<div class="navbar navbar-default navbar-static-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/">Duck Taped Blog</a>
-			</div>
-			
-			<ul class="nav navbar-nav navbar-right">
-			
-				<li><a href="/edit">Edit</a></li>
-				<li><a href="/logout">Log out</a></li>
-				<li><a href="/login">Log in</a></li>
-				<li><a href="/signup">Sign up</a></li>
-			
-			</ul>
 
-		</div>
-	</div>
 
-<div class="container">
-	
-	<div class="alert alert-info" role="alert">
 
-	</div>
+
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+        <div class="header">
+            <h1 class="brand-title">Duck Taped I/O</h1>
+            <h2 class="brand-tagline">A community software blog </h2>
+
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a class="pure-button" href="http://purecss.io">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="pure-button" href="http://purecss.io">Articles</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="pure-button" href="http://yuilibrary.com">Join</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="pure-button" href="http://purecss.io">Login</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="pure-button" href="http://purecss.io">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+  <!-- News section -->
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
