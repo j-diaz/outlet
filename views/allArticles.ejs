@@ -1,6 +1,6 @@
 
 <% include header %>
-        
+      
     <% if(articles){ %>
     <% articles.forEach(function(article){ %>
    
@@ -13,7 +13,7 @@
                     <header class="post-header">
                         <img class="post-avatar" alt="Tilo Mitra&#x27;s avatar" height="48" width="48" src="img/common/tilo-avatar.png">
 
-                        <a href="/articles/<%=article.title%>" ><h2 class="post-title"><%= article.title %></h2></a>
+                        <a href="/blog/article/<%=article.title.replace(/ +/g,'-')%>" ><h2 class="post-title"><%= article.title %></h2></a>
 
                         <p class="post-meta">
                             By <a href="#" class="post-author"><%= article.author %></a> under <a class="post-category post-category-design" href="#">CSS</a> <a class="post-category post-category-pure" href="#">Pure</a>
