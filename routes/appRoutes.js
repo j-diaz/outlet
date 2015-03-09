@@ -3,9 +3,15 @@
 // ================================================================
 var Article 	 = require('../models/article');
 var User 			 = require('../models/user');
+var News 			 = require('../models/news');
 
-module.exports = function(app, passport, cache){
-	console.log('initial cache content'+JSON.stringify(cache));
+
+
+module.exports = function(app, passport, aCache, nCache, cache_config, async){
+	console.log('Cache: \n news -> '
+		+JSON.stringify(nCache) 
+		+ '\n articles -> '
+		+JSON.stringify(aCache));
 	// =================================
 	// FOR PERSISTING USER
 	// =================================
@@ -30,25 +36,76 @@ module.exports = function(app, passport, cache){
 	// 	//console.log(JSON.stringify(res.locals.latestArticle));
 	// 	next();
 	// });
-// //
-// Article.find()
-// 				.where('published').equals(true)
-// 				.where('latest').equals(true)
-// 				.sort({ createdAt: "descending"})
-// 				.exec(function (err , articles) {
-// 					if (err) { return next(err); }
-// 					console.log('loading home page: '+JSON.stringify(articles));
-
-// 					res.render('index', {articles: articles});
-// 		});
 	
 	app.get('/', function(req, res, next){
-		 console.log('Cache content:' +cache[0]);
-		var title = fromWhitespaceToDashes(cache[0].title);
-		console.log('with dashes: ' +title);
-		res.redirect('/blog/articles/'+title);
+		
+		//var title = fromWhitespaceToDashes(cache[0].title);
+	//	console.log('with dashes: ' +title);
+		res.redirect('/blog');
 	});
 
+	app.get('/blog', function(req, res, next){
+
+		var out_articles   = {};
+		var out_news 			 = {};
+
+		//	parallel tasks
+		function findArticles(){
+			if(aCache.length < cache_config.articles) {
+				out_articles = aCache;
+			 }
+			else {
+				// aCache.length == LIMIT_OF_ARTICLE_CACHE
+				// by business policy cache should never be greater than property
+				Article.find()
+					.where('published').equals(true)
+					.sort({ createdAt: "descending"})
+					.exec(function (err , articles) {
+						if (err) { return next(err); }
+						console.log('/blog found articles: '+JSON.stringify(articles) +'\n\n');
+
+						aCache = articles.splice(cache_config.articles, articles.length);	
+						out_articles = aCache;
+				});	
+			}
+			
+		}
+		
+		function findNews(){
+			if(nCache.length < cache_config.news) {
+				out_news = nCache; 
+			}
+			else{
+				// nCache.length ==  LIMIT_OF_NEWS_CACHE
+				News.find()
+						.where('published').equals(true)
+						.sort({ createdAt: "descending"})
+						.exec(function (err , news) {
+							if (err) { return next(err); }
+							console.log('/blog found news: '+JSON.stringify(news)  +'\n\n');
+				
+							nCache = news.splice(cache_config.news, news.length);
+							out_news = news;
+				});
+			}
+		}
+
+		async.series(
+			[
+				findArticles,
+				findNews
+			],function(req, res, next){
+			res.render('index', {data: { news: out_news, articles: out_articles }} );
+		});
+
+	});
+//expansion
+// {
+// 	data: {
+// 		news:[{}],
+// 		articles:[{}]
+// 	}
+// }
 
 	// =================================
 	// FIND BY TITLE PAGE
@@ -66,19 +123,7 @@ module.exports = function(app, passport, cache){
 			//article.title = fromWhitespaceToDashes(article.title);
 				
 			res.render('article', {article:article});
-		});
-	});
-
-	app.get('/blog', function(req, res, next){
-		Article.find()
-				.where('published').equals(true)
-				.sort({ createdAt: "descending"})
-				.exec(function (err , articles) {
-					if (err) { return next(err); }
-					console.log('loading home page: '+JSON.stringify(articles));
-
-					res.render('allArticles', {articles: articles});
-		});
+		})
 	});
 
 	// =================================
@@ -150,7 +195,7 @@ module.exports = function(app, passport, cache){
 	// =================================
 	// ADMIN PAGE
 	// =================================
-	app.get('/admin', function(req, res, next){
+	app.get('/blog/admin', function(req, res, next){
 		if(isAdmin)
 			res.render('admin', {user: req.user});
 

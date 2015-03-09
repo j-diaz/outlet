@@ -1,23 +1,29 @@
 // app.js
 
 // setup ======================================================
-var path 					= require('path');
-var express 			= require('express');
-var app 					= express();
-var port 					= process.env.PORT || 3000
-var cache					= new Array();
-cache.push({ "_id" : "54f9115d5fce2b76f58aa414", "title" : "The most recent", "body" : "super fun article", "author" : "J. Diaz Palacios", "published" : true, "createdAt" : new Date("2015-03-06T02:30:53.301Z") })
-var mongoose 			= require('mongoose');
-var logger 				= require('morgan');
-var flash 				= require('connect-flash');
-var passport 			= require('passport');
+var path 								= require('path');
+var fs 									= require('fs');
+var express 						= require('express');
+var app 								= express();
+var port 								= process.env.PORT || 3000
 
-var bodyParser 		= require('body-parser');
-var cookieParser 	= require('cookie-parser');
-var session 			= require('express-session');
-var publicPath 		= path.resolve(__dirname, 'public');
+var mongoose 						= require('mongoose');
+var logger 							= require('morgan');
+var flash 							= require('connect-flash');
+var passport 						= require('passport');
 
-var configDb 			= require('./config/database.js');
+var bodyParser 					= require('body-parser');
+var cookieParser 				= require('cookie-parser');
+var session 						= require('express-session');
+var publicPath 					= path.resolve(__dirname, 'public');
+
+var aCache							= {};
+var nCache							= {};
+var CACHE_CONSTANTS			= {};
+var async								= require('async');
+var flow								= require('nimble');
+
+var configDb 						= require('./config/database.js');
 // configuration ==============================================
 
 // connect to db
@@ -46,12 +52,34 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// routes==========================================================
-require('./routes/appRoutes.js')(app, passport, cache); //load our apps and pass passport fully configured
-require('./routes/apiRoutes.js')(app, passport, cache);
 
-// launch =========================================================
+// populate artcle & news Caches========================================
+cache_config = require('./cache/cache_properties.json');
+console.log('Succesfully read cache_properties.json file: '+cache_config.news);
 
-app.listen(app.get('port'), function(){
-	console.log('Server started on port: '+app.get('port'));
-});
+// Configuration of Cache + Routes must happen sequantially=============
+var caching = require('./cache/bootstrap_cache.js');
+var app_routing = require('./routes/appRoutes.js');
+var api_routing = require('./routes/apiRoutes.js');
+
+flow.series([
+		function(catching){
+			console.log('Boostrapping Caches');
+			catching(aCache, nCache, cache_config.article, cache_config.news);
+		},
+		function(app_routing){
+			console.log('Configuring appRoutes.js');
+			// routes==========================================================
+			app_routing(app, passport, aCache, nCache, cache_config, async); //load our apps and pass passport fully configured
+		},
+		function(api_routing){
+			console.log('Configuring apiRoutes.js');
+			api_routing(app, passport, aCache, nCache, cache_config, async);
+			
+		}
+]);
+
+	// launch =========================================================
+			app.listen(app.get('port'), function(){
+					console.log('Server started on port: '+app.get('port'));
+			});

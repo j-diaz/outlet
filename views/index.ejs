@@ -1,12 +1,38 @@
 
 <% include header %>
-      
-    <% if(articles){ %>
-    <% articles.forEach(function(article){ %>
+    
+    <!-- News section -->
+    
+    <% if(data.news){ %>
+    <% data.news.forEach(function(news){ %>
+    <div class="posts">
+                <h1 class="content-subhead">News</h1>
+
+                <!-- A single blog post -->
+                <section class="post">
+                    <header class="post-header">
+                        <h1> <%= news.title %> </h1>
+                    </header>
+
+                    <div class="post-description">
+                        <p>
+                        <%= news.body %>
+                        </p>
+                    </div>
+                </section>
+
+                <h1 class="content-subhead"></h1>
+    </div>
+            <!-- /news section -->
+    <% }); % >
+    <% } %>
+
+    <% if(data.articles){ %>
+    <% data.articles.forEach(function(article){ %>
    
             <!-- A wrapper for all the blog posts -->
             <div class="posts">
-                <h1 class="content-subhead">Pinned Post</h1>
+                <!-- h1 class="content-subhead">Pinned Post</h1 -->
 
                 <!-- A single blog post -->
                 <section class="post">

@@ -1,5 +1,5 @@
 <h1> Post you article here! </h1>
-<form action='/post' method='POST'>
+<form action='/blog/post' method='POST'>
 	
 	title: <br>
 	<input type="text" name="title" id=title1>
@@ -10,5 +10,20 @@
 	<input type="text" name="author">
 
 	<br><br>
-	<input type="submit" value="Submit">
+	<input type="submit" value="Submit Post">
 </form>
+ <hr>
+
+<% if(user.admin){ %>
+	<form action='/blog/post/news' method='POST'>
+		
+		title: <br>
+		<input type="text" name="newsTitle" id=title2>
+		body: <br>
+		<input type="text" name="newsBody">
+
+		<br><br>
+		<input type="submit" value="Submit News">
+	</form>	
+
+<% } %>
