@@ -1,12 +1,47 @@
 <% include header %>
 
+
 <h1>Welcome <%= user.displayName %> </h1>
+<h1>Summary</h1>
 <h2>Admin: <%= user.admin %> </h2>
-<h3>Summary</h3>
+
 <p>Object_id: <%= user.id %> </p>
 <p>email: <%= user.email %> </p>
 <p>displayName: <%= user.displayName %> </p>
-<p>password: <%= user.password %> </p>
+<p>password: n/a </p>
 <p>Bio: <%= user.bio %> </p>
+
+<hr>
+<h1> Post you article here! </h1>
+<form action='/blog/post' method='POST' class="pure-form-stacked">
+	<fieldset>
+
+	<label for="title1">Title:</label>
+	<input type="text" name="title" id=title1>
+
+	<label for="post-author">Author: </label>
+	<input type="text" name="author" value="<%= user.displayName %>" id="post-author">
+
+	<label for="post-preview">Preview: </label>
+	<input type="text" name="preview"  id="post-preview">
+		
+	<h3>Body goes here</h3>	
+	<p>Insert each parragraph one at a time. When you need an image simple add an image url with the "add image url" button.<p>
+		
+		<div id="body-content">
+		<!-- Append as much paragraphs OR images as needed -->
+		<!--label for="parragraph1">parragraph1</label --> <!--textarea rows="4" cols="100" id="parragraph1" ></textarea -->
+		<!-- label for="image1">img url</label --><!-- input type="text" id="image1" -->
+		<div>
+
+		<br>
+
+		<button type="button" class="pure-button pure-button-primary" id="addParr" > Add Paragraph </button>
+		<button type="button" class="pure-button pure-button-primary" id="addImg" > Add image url </button>
+	
+		<button class="pure-button pure-button-error" type="submit">Submit</button>
+	</fieldset>
+
+</form>
 
 <% include footer %>

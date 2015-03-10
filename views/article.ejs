@@ -9,16 +9,16 @@
                 <!-- A single blog post -->
                 <section class="post">
                     <header class="post-header">
-                        <img class="post-avatar" alt="Tilo Mitra&#x27;s avatar" height="48" width="48" src="img/common/tilo-avatar.png">
-
+                    
                         <h2 class="post-title"><%= article.title %></h2>
 
                         <p class="post-meta">
-                            By <a href="#" class="post-author"><%= article.author %></a> under <a class="post-category post-category-design" href="#">CSS</a> <a class="post-category post-category-pure" href="#">Pure</a>
+                            By <a href="#" class="post-author"><%= article.author %></a>
                         </p>
                     </header>
 
                     <div class="post-description">
+                        <p><%= article.preview %></p>
                         <p>
                            <%= article.body %>
                         </p>

@@ -5,8 +5,7 @@ var path 					= require('path');
 var express 			= require('express');
 var app 					= express();
 var port 					= process.env.PORT || 3000
-var cache					= new Array();
-cache.push({ "_id" : "54f9115d5fce2b76f58aa414", "title" : "The most recent", "body" : "super fun article", "author" : "J. Diaz Palacios", "published" : true, "createdAt" : new Date("2015-03-06T02:30:53.301Z") })
+
 var mongoose 			= require('mongoose');
 var logger 				= require('morgan');
 var flash 				= require('connect-flash');
@@ -47,8 +46,7 @@ app.use(passport.session());
 app.use(flash());
 
 // routes==========================================================
-require('./routes/appRoutes.js')(app, passport, cache); //load our apps and pass passport fully configured
-require('./routes/apiRoutes.js')(app, passport, cache);
+require('./routes/appRoutes.js')(app, passport); //load our apps and pass passport fully configured
 
 // launch =========================================================
 

@@ -1,28 +1,27 @@
 
 <% include header %>
-      
+  
     <% if(articles){ %>
     <% articles.forEach(function(article){ %>
    
             <!-- A wrapper for all the blog posts -->
             <div class="posts">
-                <h1 class="content-subhead">Pinned Post</h1>
+               
 
                 <!-- A single blog post -->
                 <section class="post">
                     <header class="post-header">
-                        <img class="post-avatar" alt="Tilo Mitra&#x27;s avatar" height="48" width="48" src="img/common/tilo-avatar.png">
 
                         <a href="/blog/article/<%=article.title.replace(/ +/g,'-')%>" ><h2 class="post-title"><%= article.title %></h2></a>
 
                         <p class="post-meta">
-                            By <a href="#" class="post-author"><%= article.author %></a> under <a class="post-category post-category-design" href="#">CSS</a> <a class="post-category post-category-pure" href="#">Pure</a>
+                            By <a href="#" class="post-author"><%= article.author %></a>
                         </p>
                     </header>
 
                     <div class="post-description">
                         <p>
-                           <%= article.body %>
+                           <%= article.preview %>
                         </p>
                     </div>
                 </section>
