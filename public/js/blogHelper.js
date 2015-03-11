@@ -13,13 +13,13 @@ $(document).ready(function(){
 
 		// Dynamic parragraphs
     $('#addParr').click(function(){
-        $('#article-body-content').append('<label id="labelParr'+pCount+'" for="parragraph'+pCount+'">parragraph'+pCount+'</label><textarea rows="4" cols="100" id="parragraph'+pCount+'" ></textarea>');
+        $('#article-body-content').append('<label id="labelParr'+pCount+'" for="parragraph'+pCount+'">parragraph'+pCount+'</label><textarea rows="4" cols="100" id="parragraph'+pCount+'" name="parragraph'+pCount+'"></textarea>');
     		pCount++;
     		console.log('incrementing pCount to: ' + pCount);
     });
 
     $('#addImg').click(function(){
-        $('#article-body-content').append('<label id="labelImg'+iCount+'" for="img-'+iCount+'">Image URL#'+iCount+': </label><input type="text" id="img-'+iCount+'">');
+        $('#article-body-content').append('<label id="labelImg'+iCount+'" for="img-'+iCount+'">Image URL#'+iCount+': </label><input type="text" id="img-'+iCount+'" name="img-'+iCount+'" >');
         iCount++;
         console.log('incrementing iCount to: ' + iCount);
     });
