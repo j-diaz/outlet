@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var articleSchema = mongoose.Schema({
 	title: { type: String, required: true, unique: true},
-	body: {type: String, required: true },
+	body: [],
 	author: {type: String, required: true},
 	published: {type: Boolean, required: true},
 	createdAt: { type: Date, default: Date.now } 

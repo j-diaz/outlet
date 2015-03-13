@@ -1,15 +1,7 @@
-// function fromWhitespaceToDashes(title){
-// 		return title.replace(/ +/g,'-');
-// 	}
-
-// function fromDashToWhitespace(title){
-// 		return title.replace(/-/g,' ');
-// }
-
 
 $(document).ready(function(){
-		var pCount = 0;
-		var iCount = 0;
+	var pCount = 0;
+	var iCount = 0;
 
 		// Dynamic parragraphs
     $('#addParr').click(function(){
@@ -19,7 +11,7 @@ $(document).ready(function(){
     });
 
     $('#addImg').click(function(){
-        $('#article-body-content').append('<label id="labelImg'+iCount+'" for="img-'+iCount+'">Image URL#'+iCount+': </label><input type="text" id="img-'+iCount+'" name="img-'+iCount+'" >');
+        $('#article-body-content').append('<label id="labelImg'+iCount+'" for="img'+iCount+'">Image URL#'+iCount+': </label><input type="text" id="img-'+iCount+'" name="img'+iCount+'" >');
         iCount++;
         console.log('incrementing iCount to: ' + iCount);
     });
@@ -41,7 +33,7 @@ $(document).ready(function(){
 	     		iCount--;
 	     		console.log('decrementing iCount to: ' + iCount);
 	     		$('#labelImg'+iCount).remove();
-	        $('#img-'+iCount).remove();
+	        $('#img'+iCount).remove();
     		}
     });
 

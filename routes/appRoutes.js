@@ -91,36 +91,55 @@ module.exports = function(app, passport){
 	// =================================
 
 	app.post('/blog/post', function(req, res, next){
-			console.log('postArticle: ' + JSON.stringify(req.body));
-			if(!req.body.title || !req.body.preview || !req.body.author){ return next(new Error('Incorrect article payload'));}
-			console.log(JSON.stringify(req.body));
+			console.log('jajajajaja');
+			var array = req.params;
+			var body = req.body;
+			console.log(body);
+			console.log('postedArticle: ' + JSON.stringify(array));
+			
+			// if(!req.body.title || !req.body.preview || !req.body.author){ return next(new Error('Incorrect article payload'));}
+			// console.log(JSON.stringify(req.body));
 			// var title = req.body.title;
 			// var body = req.body.body;
 			// var author = req.body.author;
 			// var published = false;
 
-		 // 	Article.findOne({title: title}, function(err, article){
-		 // 		if(err) { return next(err);}
-		 // 		if(article){
-		 // 			req.flash('error', 'An article was found with that same title');
-		 // 			return res.redirect('/blog/profile');
-		 // 		}
+			// //hoisting!
+			// function storeInDb(){
+			//  	Article.findOne({title: title}, function(err, article){
+			//  		if(err) { return next(err);}
+			//  		if(article){
+			//  			req.flash('error', 'An article was found with that same title');
+			//  			return res.redirect('/blog/profile');
+			//  		}
 
-			//  	var newArticle = new Article({
-			// 	 		title: title,
-			// 	 		body: body,
-			// 	 		author: author,
-			// 	 		published: published,
-			// 	 		createdAt: new Date()
-			//  		});
+			// 	 	var newArticle = new Article({
+			// 		 		title: title,
+			// 		 		body: body,
+			// 		 		author: author,
+			// 		 		published: published,
+			// 		 		createdAt: new Date()
+			// 	 		});
 
-			//  	newArticle.save(function(err){
-			//  		if(err) {return next(err);}
-			 	
-			//  		res.send('ok!');
-			//  	});
+			// 	 	newArticle.save(function(err){
+			// 	 		if(err) {return next(err);}
+				 	
+			// 	 		res.send('ok!');
+			// 	 	});
 
-			// });
+			// 	});
+			// }
+
+
+			// function makeHTMLArticle(callback){
+
+
+
+			// 	callback();
+			// }
+
+			// makeHTMLarticle(storeInDb);
+			
 	});
 
 	// =================================
@@ -207,6 +226,18 @@ module.exports = function(app, passport){
 	function fromDashToWhitespace(title){
 		return title.replace(/-/g, ' ');
 	}
+
+	// =================================
+	// Append html tags
+	// =================================
+	function appendPtag(parr){
+		return '<p>'+parr+'</p>';
+	}
+
+	function appendImgTag(url){
+		return '<img class="pure-img" src="'+url+'">'
+	}
+
 
 
 }
