@@ -1,9 +1,11 @@
 {
   "name": "ducktapedApp",
   "version": "1.0.0",
-  "description": "",
+  "description": "blogging application",
   "private": true,
-  "main": "index.js",
+  "engines": {
+    "node":"0.10.35"
+    },
   "scripts": {
     "start": "app.js"
   },
