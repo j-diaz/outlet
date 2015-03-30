@@ -19,13 +19,14 @@
 
                     <div class="post-description">
                         <p><%= article.preview %></p>
-                        <p> <!-- display each article element e.g. parragraph, img -->
+                         <!-- display each article element e.g. parragraph, img -->
                            <% article.body.forEach(function(elem){   %>
                            <%     var a = Object.keys(elem);         %>
+                           <%                                        %>
                            <%     var name = a[0];                   %>        
-                           <%=    elem[name]                         %>  
+                           <%-    elem[name]                         %>  
                            <% }); %>
-                        </p>
+                        
                     </div>
                 </section>
             </div>

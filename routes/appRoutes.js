@@ -32,9 +32,27 @@ module.exports = function(app, passport){
 			if(err) return next(err);
 			if(!article.published) return res.sendStatus(401);
 			
-			console.log('found article: '+JSON.stringify(article));
+				var result = (function (article){
+						
+						var out = article;
+
+						//for(var j=0; j<out.length; j++){
+							var body = out.body;	
+							for(var i=0; i<body.length; i++){
+								console.log('Inside loop: i='+i + ' and '+JSON.stringify(article) );
+								if(body[i].name.match(/parr*/))
+									out.body[i].value = appendPtag(body[i].value);
+								if(body[i].name.match(/img*/))
+									out.body[i].value = appendImgTag(body[i].value);
+							}
+						//}
+						console.log('Priting out vlaue: '+JSON.stringify(out));
+					 return out;	
+					})(article)
+					console.log('Modified result: '+JSON.stringify(result));
+
 				
-			res.render('article', {article:article});
+			res.render('article', {article:result});
 		});
 	});
 
@@ -45,7 +63,8 @@ module.exports = function(app, passport){
 				.exec(function (err , articles) {
 					if (err) { return next(err); }
 					console.log('loading home page: '+JSON.stringify(articles));
-
+					
+				
 					res.render('index', {articles: articles});
 		});
 	});
@@ -91,44 +110,46 @@ module.exports = function(app, passport){
 	// =================================
 
 	app.post('/blog/post', function(req, res, next){
-			console.log('jajajajaja');
-			var array = req.params;
+			console.log('Creating new article:');
 			var body = req.body;
 			console.log(body);
-			console.log('postedArticle: ' + JSON.stringify(array));
+
 			
-			// if(!req.body.title || !req.body.preview || !req.body.author){ return next(new Error('Incorrect article payload'));}
-			// console.log(JSON.stringify(req.body));
-			// var title = req.body.title;
-			// var body = req.body.body;
-			// var author = req.body.author;
-			// var published = false;
+			console.log('postedArticle: ' + JSON.stringify(body));
+			
+			if(!req.body.title || !req.body.preview || !req.body.author){ return next(new Error('Incorrect article payload'));}
+			console.log(JSON.stringify(req.body));
+			var title = req.body.title;
+			var preview = req.body.preview;
+			var author = req.body.author;
+			var body = req.body.body;
+			var published = true;
 
-			// //hoisting!
-			// function storeInDb(){
-			//  	Article.findOne({title: title}, function(err, article){
-			//  		if(err) { return next(err);}
-			//  		if(article){
-			//  			req.flash('error', 'An article was found with that same title');
-			//  			return res.redirect('/blog/profile');
-			//  		}
 
-			// 	 	var newArticle = new Article({
-			// 		 		title: title,
-			// 		 		body: body,
-			// 		 		author: author,
-			// 		 		published: published,
-			// 		 		createdAt: new Date()
-			// 	 		});
+		 	Article.findOne({title: title}, function(err, article){
+		 		if(err) { return next(err);}
+		 		if(article){
+		 			req.flash('error', 'An article was found with that same title');
+		 			return res.redirect('/blog/profile');
+		 		}
 
-			// 	 	newArticle.save(function(err){
-			// 	 		if(err) {return next(err);}
-				 	
-			// 	 		res.send('ok!');
-			// 	 	});
+			 	var newArticle = new Article({
+				 		title: title,
+				 		preview: preview,
+				 		author: author,
+				 		body: body,
+				 		published: published,
+				 		createdAt: new Date()
+			 		});
 
-			// 	});
-			// }
+			 	newArticle.save(function(err){
+			 		if(err) {return next(err);}
+			 	
+			 		res.send('ok!');
+			 	});
+
+			});
+
 
 
 			// function makeHTMLArticle(callback){
