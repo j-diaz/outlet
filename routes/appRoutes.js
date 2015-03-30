@@ -145,7 +145,7 @@ module.exports = function(app, passport){
 			 	newArticle.save(function(err){
 			 		if(err) {return next(err);}
 			 	
-			 		res.send('ok!');
+			 		res.status(200).end();
 			 	});
 
 			});
@@ -215,6 +215,14 @@ module.exports = function(app, passport){
 	// 	});
 	// });
 
+app.get('/blog/about', function(req, res, next){
+	res.render('about');
+});
+
+
+app.get('/blog/contact', function(req, res, next){
+	res.render('contact');
+});
 	// =================================
 	// 404 PAGE
 	// =================================
