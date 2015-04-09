@@ -25,7 +25,7 @@ module.exports = function(app, passport){
 	// =================================
 	app.get('/blog/article/:title', function(req, res, next){
 		if(!req.params.title) return next(new Error('No article title'));
-		
+		console.log('title: '+req.params.title);
 		var title = fromDashToWhitespace(req.params.title);
 		console.log('param title:' +title);
 		Article.findOne({title: title}, function(err , article){
@@ -145,22 +145,11 @@ module.exports = function(app, passport){
 			 	newArticle.save(function(err){
 			 		if(err) {return next(err);}
 			 	
-			 		res.status(200).end();
+			 		res.redirect('/blog');
 			 	});
 
 			});
 
-
-
-			// function makeHTMLArticle(callback){
-
-
-
-			// 	callback();
-			// }
-
-			// makeHTMLarticle(storeInDb);
-			
 	});
 
 	// =================================
@@ -249,7 +238,7 @@ app.get('/blog/contact', function(req, res, next){
 	// Replaces white space characters with dashes
 	// ==================================================
 	function fromWhitespaceToDashes(title){
-		return title.replace(/ +/g, '-');
+		return title.replace(/\s/g, '-');
 	}
 
 	function fromDashToWhitespace(title){
