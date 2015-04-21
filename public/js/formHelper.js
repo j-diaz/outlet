@@ -6,7 +6,7 @@ function postArticle(){
 			var jsonReady = formatJSON(array);
 			console.log('Attempting to create article.');
 			$.ajax({
-					url: '/blog/post',
+					url: '/post',
 					type: 'POST',
 					contentType: 'application/json',
 					dataType: 'json',

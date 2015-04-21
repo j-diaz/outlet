@@ -16,14 +16,11 @@ module.exports = function(app, passport){
 		next();
 	});
 	
-	app.get('/', function(req, res, next){
-		res.redirect('/blog');
-	});
 
 	// =================================
 	// FIND BY TITLE PAGE
 	// =================================
-	app.get('/blog/article/:title', function(req, res, next){
+	app.get('/article/:title', function(req, res, next){
 		if(!req.params.title) return next(new Error('No article title'));
 		console.log('title: '+req.params.title);
 		var title = fromDashToWhitespace(req.params.title);
@@ -56,7 +53,7 @@ module.exports = function(app, passport){
 		});
 	});
 
-	app.get('/blog', function(req, res, next){
+	app.get('/', function(req, res, next){
 		Article.find()
 				.where('published').equals(true)
 				.sort({ createdAt: "descending"})
@@ -73,14 +70,14 @@ module.exports = function(app, passport){
 	// 	LOGIN PAGE
 	// =================================	
 	// GET
-	app.get('/blog/login', function(req, res, next){
+	app.get('/login', function(req, res, next){
 		res.render('login');
 	});
 	// POST
-	app.post('/blog/login', passport.authenticate('login-local', 
+	app.post('/login', passport.authenticate('login-local', 
 			{
-				successRedirect: '/blog/profile',
-				failureRedirect: '/blog/login',
+				successRedirect: '/profile',
+				failureRedirect: '/login',
 				failureFlash: true
 			}
 		)
@@ -89,7 +86,7 @@ module.exports = function(app, passport){
 	// =================================
 	// LOGOUT PAGE
 	// =================================
-	app.get('/blog/logout', function(req, res, next){
+	app.get('/logout', function(req, res, next){
 		req.logout();
 		res.redirect('/');
 	});
@@ -98,18 +95,18 @@ module.exports = function(app, passport){
 	// =================================
 	// ADMIN PAGE
 	// =================================
-	app.get('/blog/admin', function(req, res, next){
+	app.get('/admin', function(req, res, next){
 		if(isAdmin)
 			res.render('admin', {user: req.user});
 
-		res.redirect('/blog/login');
+		res.redirect('/login');
 	});
 
 	// =================================
 	// POST PAGE
 	// =================================
 
-	app.post('/blog/post', function(req, res, next){
+	app.post('/post', function(req, res, next){
 			console.log('Creating new article:');
 			var body = req.body;
 			console.log(body);
@@ -130,7 +127,7 @@ module.exports = function(app, passport){
 		 		if(err) { return next(err);}
 		 		if(article){
 		 			req.flash('error', 'An article was found with that same title');
-		 			return res.redirect('/blog/profile');
+		 			return res.redirect('/profile');
 		 		}
 
 			 	var newArticle = new Article({
@@ -145,7 +142,7 @@ module.exports = function(app, passport){
 			 	newArticle.save(function(err){
 			 		if(err) {return next(err);}
 			 	
-			 		res.redirect('/blog');
+			 		res.redirect('/');
 			 	});
 
 			});
@@ -155,36 +152,36 @@ module.exports = function(app, passport){
 	// =================================
 	// PROFILE PAGE
 	// =================================
-	app.get('/blog/profile', function(req, res, next){
+	app.get('/profile', function(req, res, next){
 		if( !isLoggedIn(req, res, next) ){
-			res.redirect('/blog/login');		 
+			res.redirect('/login');		 
 		}
 		else res.render('profile', {user: req.user});	
 	});
 
 
-	// =================================
-	// SIGNUP PAGE
-	// =================================
+	//=================================
+	//SIGNUP PAGE
+	//=================================
 	//GET
-	// app.get('/blog/signup', function(req, res, next){
+	// app.get('/signup', function(req, res, next){
 	// 	res.render('signup');
 	// });
 	//POST
-	// app.post('/blog/signup', function(req, res, next){
+	// app.post('/signup', function(req, res, next){
 	// 	console.log('registering new user: ' + JSON.stringify(req.body));
 	// 	if(!req.body.email|| !req.body.password){ return next(new Error('Incorrect admin payload'));}
 	// 	var email = req.body.email;
 	// 	var password = req.body.password;
 	// 	var displayName = req.body.displayName;
 	// 	var bio = req.body.bio;
-	// 	var admin = false;
+	// 	var admin = true;
 
 	//  	User.findOne({email: email}, function(err, user){
 	//  		if(err) { return next(err);}
 	//  		if(user){
 	//  			req.flash('error', 'A user was found with that same email');
-	//  			return res.redirect('/blog/signup');
+	//  			return res.redirect('/signup');
 	//  		}
 
 	// 	 	var newUser = new User({
@@ -198,18 +195,18 @@ module.exports = function(app, passport){
 
 	// 	 	newUser.save(function(err){
 	// 	 		if(err) {return next(err);}
-	// 	 		res.redirect('/blog/login');
+	// 	 		res.redirect('/login');
 	// 	 	});
 
 	// 	});
 	// });
 
-app.get('/blog/about', function(req, res, next){
+app.get('/about', function(req, res, next){
 	res.render('about');
 });
 
 
-app.get('/blog/contact', function(req, res, next){
+app.get('/contact', function(req, res, next){
 	res.render('contact');
 });
 	// =================================
