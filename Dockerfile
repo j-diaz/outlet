@@ -1,21 +1,7 @@
-FROM ubuntu
+FROM josediaz30/nodejs-thin
 
 # File Author
-MAINTAINER Jose
-
-#install dependencies
-RUN apt-get update
-RUN apt-get install -y curl
-RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
-RUN apt-get -y install python build-essential
-
-# Install nodejs
-RUN apt-get -y install nodejs
-
-RUN node -v
-RUN npm -v
-
-WORKDIR /root/node-app
+MAINTAINER Jose Diaz
 
 # Bundle app source
 COPY . /src
