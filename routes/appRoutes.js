@@ -16,7 +16,18 @@ module.exports = function(app, passport){
 		next();
 	});
 	
-
+	app.get('/', function(req, res, next){
+		Article.find()
+				.where('published').equals(true)
+				.sort({ createdAt: "descending"})
+				.exec(function (err , articles) {
+					if (err) { return next(err); }
+					console.log('loading home page: '+JSON.stringify(articles));
+					
+				
+					res.render('index', {articles: articles});
+		});
+	});
 	// =================================
 	// FIND BY TITLE PAGE
 	// =================================
@@ -53,18 +64,7 @@ module.exports = function(app, passport){
 		});
 	});
 
-	app.get('/', function(req, res, next){
-		Article.find()
-				.where('published').equals(true)
-				.sort({ createdAt: "descending"})
-				.exec(function (err , articles) {
-					if (err) { return next(err); }
-					console.log('loading home page: '+JSON.stringify(articles));
-					
-				
-					res.render('index', {articles: articles});
-		});
-	});
+	
 
 	// =================================
 	// 	LOGIN PAGE
