@@ -11,7 +11,7 @@ $(document).ready(function(){
     });
 
     $('#addImg').click(function(){
-        $('#article-body-content').append('<label id="labelImg'+iCount+'" for="img'+iCount+'">Image URL#'+iCount+': </label><input type="text" id="img-'+iCount+'" name="img'+iCount+'" >');
+        $('#article-body-content').append('<label id="labelImg'+iCount+'" for="img'+iCount+'">Image URL#'+iCount+': </label><input type="text" id="img'+iCount+'" name="img'+iCount+'" >');
         iCount++;
         console.log('incrementing iCount to: ' + iCount);
     });
@@ -27,7 +27,7 @@ $(document).ready(function(){
     		}
     });
 
-     $("#remImg").click(function(){
+    $('#remImg').click(function(){
      		if(iCount != 0)
      		{	
 	     		iCount--;
