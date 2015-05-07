@@ -1,7 +1,6 @@
 console.log('hey I got added!');
 function postArticle(){
 
-			console.log('I got called!1');
 			var array = $("#newArticleForm").serializeArray();
 			var jsonReady = formatJSON(array);
 			console.log('Attempting to create article.');
@@ -11,8 +10,10 @@ function postArticle(){
 					contentType: 'application/json',
 					dataType: 'json',
 					data:  JSON.stringify(jsonReady),
-					success: function(dataResponse, status, xhr){
+					success: function(data, status, xhr){
 						console.log(status);
+						if(typeof data.redirect == 'string')
+            window.location = data.redirect
 					},
 					error: function(jqXHR, status, error){
 						console.log(error);

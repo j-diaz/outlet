@@ -13,8 +13,9 @@
                         <h2 class="post-title"><%= article.title %></h2>
 
                         <p class="post-meta">
-                            By <a href="#" class="post-author"><%= article.author %></a>
-                        </p>
+                       	    By <a href="#" class="post-author"><%= article.author %></a> on
+                            <%=article.createdAt.getFullYear()%>/<%=article.createdAt.getMonth()%>/<%=article.createdAt.getDay()%>
+			</p>
                     </header>
 
                     <div class="post-description">

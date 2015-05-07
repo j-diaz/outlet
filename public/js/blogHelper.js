@@ -10,31 +10,33 @@ $(document).ready(function(){
     		console.log('incrementing pCount to: ' + pCount);
     });
 
+    
+    $('#remParr').click(function(){
+		if(pCount != 0)
+    	{	
+    		pCount--;
+    		console.log('decrementing pCount to: ' + pCount);
+    		$('#labelParr'+pCount).remove();
+        $('#parragraph'+pCount).remove();
+		}
+    });
+
+    // Dynamic images
     $('#addImg').click(function(){
         $('#article-body-content').append('<label id="labelImg'+iCount+'" for="img'+iCount+'">Image URL#'+iCount+': </label><input type="text" id="img'+iCount+'" name="img'+iCount+'" >');
         iCount++;
         console.log('incrementing iCount to: ' + iCount);
     });
 
-    // Removing last dynamically added parragraphs
-    $('#remParr').click(function(){
-    		if(pCount != 0)
-	    	{	
-	    		pCount--;
-	    		console.log('decrementing pCount to: ' + pCount);
-	    		$('#labelParr'+pCount).remove();
-	        $('#parragraph'+pCount).remove();
-    		}
-    });
-
+  
     $('#remImg').click(function(){
-     		if(iCount != 0)
-     		{	
-	     		iCount--;
-	     		console.log('decrementing iCount to: ' + iCount);
-	     		$('#labelImg'+iCount).remove();
-	        $('#img'+iCount).remove();
-    		}
+ 		if(iCount != 0)
+ 		{	
+     		iCount--;
+     		console.log('decrementing iCount to: ' + iCount);
+     		$('#labelImg'+iCount).remove();
+        $('#img'+iCount).remove();
+		}
     });
 
 });

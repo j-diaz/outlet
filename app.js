@@ -1,26 +1,31 @@
-// app.js
+// select run configuration
+var mode 		= process.env.MODE || 'dev'
 
 // setup ======================================================
-var path 					= require('path');
-var express       = require('express');
-var app 					= express();
-var port 					= process.env.PORT || 3000
+var path 		= require('path');
+var express 		= require('express');
+var app 		= express();
+var port 		= process.env.PORT || 3000
 
-var mongoose 			= require('mongoose');
-var logger 				= require('morgan');
-var flash 				= require('connect-flash');
-var passport 			= require('passport');
+var mongoose 		= require('mongoose');
+var logger 		= require('morgan');
+var flash 		= require('connect-flash');
+var passport 		= require('passport');
 
 var bodyParser 		= require('body-parser');
 var cookieParser 	= require('cookie-parser');
-var session 			= require('express-session');
+var session 		= require('express-session');
 var publicPath 		= path.resolve(__dirname, 'public');
 
-var configDb 			= require('./config/database.js');
+var configDb		= require('./config/database.js');
 // configuration ==============================================
 
 // connect to db
-mongoose.connect(configDb.url);
+if(mode === 'production'){
+ mongoose.connect(configDb.url);
+}else{
+ mongoose.connect(configDb.devUrl)
+}
 
 // configure passport
 require('./config/setupPassport.js')(passport);
@@ -52,5 +57,6 @@ require('./routes/appRoutes.js')(app, passport); //load our apps and pass passpo
 // launch =========================================================
 
 app.listen(app.get('port'), function(){
+	console.log('Run configuration: '+mode );
 	console.log('Server started on port: '+app.get('port'));
 });

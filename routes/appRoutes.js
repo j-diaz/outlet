@@ -15,6 +15,10 @@ module.exports = function(app, passport){
 		res.locals.infos = req.flash('info');
 		next();
 	});
+
+	app.get('/home', function(req, res, next){
+		res.redirect('/');
+	})
 	
 	app.get('/', function(req, res, next){
 		Article.find()
@@ -141,8 +145,8 @@ module.exports = function(app, passport){
 
 			 	newArticle.save(function(err){
 			 		if(err) {return next(err);}
-			 	
-			 		res.redirect('/');
+			 		console.log('inserted new article successfully');
+			 	  return res.send({redirect: '/'});
 			 	});
 
 			});
