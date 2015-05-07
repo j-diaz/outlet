@@ -22,16 +22,17 @@ var configDb		= require('./config/database.js');
 
 // connect to db
 if(mode === 'production'){
- mongoose.connect(configDb.url);
+ mongoose.connect(configDb.prodUrl);
+ app.use(logger('dev'));
 }else{
  mongoose.connect(configDb.devUrl)
+ app.use(logger('dev'));
 }
 
 // configure passport
 require('./config/setupPassport.js')(passport);
 
 // set up our express app
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
