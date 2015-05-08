@@ -33,7 +33,7 @@ running mapped to the Host's 27017 port. Please review the content of the script
 
 ##### Steps
   1. Fork or Download the code 
-  2. Review/Customize ```shell deploy-dockerc.sh``` to your needs  
+  2. Review/Customize ```shell deploy-dockerc.sh``` to your needs
   3. Run ```shell deploy-dockerc.sh``` shell script
   
   After completing the above visit your custom http://your-host:port
