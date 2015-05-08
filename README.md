@@ -1,4 +1,5 @@
-# Outlet
+Outlet
+=====
 A simple blogging application written in Node.js/Express.js
 
 This is a node.js  blogging web application. It is the source code for [DuckTapedIO's Blog](http://blog.ducktaped.io) 
@@ -9,7 +10,8 @@ It supports easy article submission and user login via application UI. Articles 
 Interested in deploying your own blog?
 Read the Usage section
 
-## Usage
+Usage
+-----
 
 ### Local Deployment
 
@@ -35,5 +37,6 @@ running mapped to the Host's 27017 port. Please review the content of the script
   3. Run ```shell deploy-dockerc.sh``` shell script
   
   After completing the above visit your custom http://your-host:port
-===
+
+------
 Enjoy!
