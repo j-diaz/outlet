@@ -8,7 +8,7 @@ link_to=db
 
 docker build -t $iname .
 
-docker run --name $cname --rm -d --link $link_to:$link_name -p $port:3000 $iname
+docker run --name $cname -d --link $link_to:$link_name -p $port:3000 $iname
 
 
 
