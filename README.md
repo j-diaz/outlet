@@ -13,25 +13,25 @@ Read the Usage section
 Usage
 -----
 
-### Local Deployment
+#### Local Deployment
 
-#### Requirements
+##### Requirements
   - Node.js version: 0.10.35 or above
   - MongoDB version: 2.4 or above
 
-#### Steps
+##### Steps
   1. Fork or Download the code
   2. Run npm install
   3. Run node app.js
 
   After completing the above visit your [http://localhost:3000/](http://localhost:3000/)
   
-### Docker Container Deployment
+#### Docker Container Deployment
 For conveniently deploying as a docker container an automation script is provided. By default
 the script provides sane assumptions about your docker environment. Additionally, it assumes you already have a mongodb container 
 running mapped to the Host's 27017 port. Please review the content of the script before executing.
 
-#### Steps
+##### Steps
   1. Fork or Download the code 
   2. Review/Customize ```shell deploy-dockerc.sh``` to your needs  
   3. Run ```shell deploy-dockerc.sh``` shell script
