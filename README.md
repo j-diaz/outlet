@@ -23,7 +23,7 @@ Usage
   1. Fork or Download the code
   2. Run npm install
   3. Run node app.js
-
+  
   After completing the above visit your [http://localhost:3000/](http://localhost:3000/)
   
 #### Docker Container Deployment
@@ -32,7 +32,7 @@ the script provides sane assumptions about your docker environment. Additionally
 running mapped to the Host's 27017 port. Please review the content of the script before executing.
 
 ##### Steps
-  1. Fork or Download the code 
+  1. Fork or Download the code
   2. Review/Customize ```deploy-dockerc.sh``` to your needs
   3. Run ```deploy-dockerc.sh``` shell script
   
