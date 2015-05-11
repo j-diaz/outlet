@@ -3,12 +3,12 @@
 cname=blogapp
 iname=duck_blog
 port=80
-link_name=db
-link_to=db
+link_alias=db
+link_with=db
 
 docker build -t $iname .
 
-docker run --name $cname -d --link $link_to:$link_name -p $port:3000 $iname
+docker run --name $cname -d --link $link_with:$link_alias -p $port:3000 $iname
 
 
 
