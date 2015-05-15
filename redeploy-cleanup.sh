@@ -7,4 +7,4 @@ docker rm -f $container_name
 
 docker rmi $image_name
 
-deploy-dockerc
+./deploy-dockerc.sh

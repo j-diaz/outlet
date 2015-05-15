@@ -40,10 +40,15 @@ module.exports = function(app, passport){
 		console.log('title: '+req.params.title);
 		var title = fromDashToWhitespace(req.params.title);
 		console.log('param title:' +title);
+		console.log('IP: '+req.ip + ' IPs: '+req.ips +' OriginalURL: '+req.originalUrl + ' Params: '+req.params.toString() + ' Body:'+req.body.toString());
 		Article.findOne({title: title}, function(err , article){
+			console.log('article found: '+article)
 			if(err) return next(err);
-			if(!article.published) return res.sendStatus(401);
-			
+			if(article === null){
+			  res.redirect('/');
+			}else if(!article.published){ 
+			  return res.sendStatus(401);
+			}else{
 				var result = (function (article){
 						
 						var out = article;
@@ -65,6 +70,7 @@ module.exports = function(app, passport){
 
 				
 			res.render('article', {article:result});
+		   }
 		});
 	});
 
