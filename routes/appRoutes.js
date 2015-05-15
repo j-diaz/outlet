@@ -13,6 +13,8 @@ module.exports = function(app, passport){
 		res.locals.currentUser = req.user;
 		res.locals.errors = req.flash('error');
 		res.locals.infos = req.flash('info');
+                console.log('INFO:\n\t Time: '+ new Date()+'\n\t TYPE: '+req.method +'\n\t IP: '+req.ip + '\n\t IPs: '+req.ips + '\n\t Host: '+req.hostname +'\n\t OriginalURL: '+req.originalUrl + '\n\t Params: '+JSON.stringify(req.params) + '\n\t Body:'+JSON.stringify(req.body));
+		//console.log("INFO: "+JSON.stringify(req))
 		next();
 	});
 
@@ -40,7 +42,7 @@ module.exports = function(app, passport){
 		console.log('title: '+req.params.title);
 		var title = fromDashToWhitespace(req.params.title);
 		console.log('param title:' +title);
-		console.log('IP: '+req.ip + ' IPs: '+req.ips +' OriginalURL: '+req.originalUrl + ' Params: '+req.params.toString() + ' Body:'+req.body.toString());
+		//console.log('IP: '+req.ip + ' IPs: '+req.ips +' OriginalURL: '+req.originalUrl + ' Params: '+req.params.toString() + ' Body:'+req.body.toString());
 		Article.findOne({title: title}, function(err , article){
 			console.log('article found: '+article)
 			if(err) return next(err);
