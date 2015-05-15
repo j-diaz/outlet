@@ -225,7 +225,8 @@ app.get('/contact', function(req, res, next){
 	// 404 PAGE
 	// =================================
 	app.use('*', function(req, res){
- 		res.render('404');
+		console.log('Unsupported request: redirecting to / ...');
+ 		res.redirect('/');
 	});
 
 	//===================================================
